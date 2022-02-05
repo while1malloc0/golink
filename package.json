@@ -29,6 +29,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@prisma/client": "^3.9.1",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.6",
     "prisma": "^3.9.1",

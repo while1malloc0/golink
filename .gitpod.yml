@@ -1,3 +1,11 @@
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - github.copilot
+    - esbenp.prettier-vscode
+    - bradlc.vscode-tailwindcss
+    - svelte.svelte-vscode
+    - prisma.prisma
 tasks:
   - init: npm install
     command: npm run dev

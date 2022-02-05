@@ -9,6 +9,9 @@ vscode:
 tasks:
   - init: npm install
     command: npm run dev
+    name: dev-server
+  - command: npx prisma studio
+    name: db-ui
 ports:
   - port: 3000
     onOpen: open-browser

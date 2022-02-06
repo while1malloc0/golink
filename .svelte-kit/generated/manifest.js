@@ -2,6 +2,7 @@ const c = [
 	() => import("../../src/routes/__layout.svelte"),
 	() => import("../../src/routes/__error.svelte"),
 	() => import("../../src/routes/index.svelte"),
+	() => import("../../src/routes/links.svelte"),
 	() => import("../../src/routes/404.svelte")
 ];
 
@@ -11,8 +12,11 @@ export const routes = [
 	// src/routes/index.svelte
 	[/^\/$/, [c[0], c[2]], [c[1]]],
 
+	// src/routes/links.svelte
+	[/^\/links\/?$/, [c[0], c[3]], [c[1]], null, 1],
+
 	// src/routes/404.svelte
-	[/^\/404\/?$/, [c[0], c[3]], [c[1]]]
+	[/^\/404\/?$/, [c[0], c[4]], [c[1]]]
 ];
 
 // we import the root layout/error components eagerly, so that

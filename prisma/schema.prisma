@@ -12,3 +12,21 @@ model Link {
     label       String @unique
     destination String
 }
+
+model User {
+    id                 Int      @id @default(autoincrement())
+    email              String   @unique
+    authorization_tier AuthTier @default(Viewer)
+    password           String
+}
+
+enum AuthTier {
+    Viewer
+    Editor
+    Admin
+}
+
+model Invite {
+    id    Int    @id @default(autoincrement())
+    email String @unique
+}

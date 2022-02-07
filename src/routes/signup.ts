@@ -47,7 +47,6 @@ export const post: RequestHandler = async ({
     };
   }
 
-  // TODO: create user in DB
   const user = await db.user.findUnique({ where: { email: email.toString() } });
   console.log(user);
   if (user) {

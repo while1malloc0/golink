@@ -24,6 +24,7 @@
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
+  <!-- TODO validate these client side -->
   <input name="email" bind:value={email} placeholder="email"/>
   {#if errors?.email}
     <p class="error">{errors.email}</p>

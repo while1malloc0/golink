@@ -1,6 +1,7 @@
 <script lang="ts">
   export let errors: { email?: string };
   export let email: string;
+  export let password: string;
 
   const onSubmit = async () => {
     let res = await fetch("/signup", {
@@ -10,6 +11,7 @@
       },
       body: JSON.stringify({
         email: email,
+        password: password,
       })
     });
     if (res.status === 201) {
@@ -22,7 +24,8 @@
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
-  <input name="email" bind:value={email}/>
+  <input name="email" bind:value={email} placeholder="email"/>
+  <input name="password" bind:value={password} type="password" placeholder="password"/>
   {#if errors?.email}
     <p class="error">{errors.email}</p>
   {/if}

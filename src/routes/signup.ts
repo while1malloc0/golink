@@ -1,5 +1,6 @@
 import type { RequestHandler } from "@sveltejs/kit";
 import Database from "$lib/db";
+import bcrypt from "bcrypt";
 
 export const get: RequestHandler = async () => {
   return {
@@ -8,7 +9,7 @@ export const get: RequestHandler = async () => {
 };
 
 export async function post({ request }: { request: Request }) {
-  const { email } = await request.json();
+  const { email, password } = await request.json();
   if (!email) {
     return {
       status: 400,
@@ -43,9 +44,31 @@ export async function post({ request }: { request: Request }) {
   }
 
   // TODO: create user in DB
+  const user = await db.user.findUnique({ where: { email: email.toString() } });
+  console.log(user);
+  if (user) {
+    return {
+      status: 401,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        errors: {
+          email: `User already exists with email: ${email.toString()}`,
+        },
+      },
+    };
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const created = await db.user.create({
+    data: { email: email.toString(), password: hashedPassword },
+  });
 
   return {
     status: 201,
-    body: {},
+    body: {
+      email: created.email,
+    },
   };
 }

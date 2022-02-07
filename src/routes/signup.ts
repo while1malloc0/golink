@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import database from "$lib/db";
+import Database from "$lib/db";
 
 export const get: RequestHandler = async () => {
   return {
@@ -23,7 +23,7 @@ export async function post({ request }: { request: Request }) {
     };
   }
 
-  const db = new database();
+  const db = new Database();
   const invitation = await db.invite.findUnique({
     where: { email: email.toString() },
   });

@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let errors: { email?: string };
+  export let errors: { email?: string, password?: string };
   export let email: string;
   export let password: string;
 
@@ -25,9 +25,12 @@
 
 <form on:submit|preventDefault={onSubmit}>
   <input name="email" bind:value={email} placeholder="email"/>
-  <input name="password" bind:value={password} type="password" placeholder="password"/>
   {#if errors?.email}
     <p class="error">{errors.email}</p>
+  {/if}
+  <input name="password" bind:value={password} type="password" placeholder="password"/>
+  {#if errors?.password}
+    <p class="error">{errors.password}</p>
   {/if}
   <button type="submit">Submit</button>
 </form>

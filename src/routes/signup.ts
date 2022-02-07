@@ -28,6 +28,20 @@ export const post: RequestHandler = async ({
     };
   }
 
+  if (!password) {
+    return {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        errors: {
+          password: "Password is required",
+        },
+      },
+    };
+  }
+
   const db = new Database();
   const invitation = await db.invite.findUnique({
     where: { email: email.toString() },

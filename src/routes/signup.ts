@@ -8,7 +8,11 @@ export const get: RequestHandler = async () => {
   };
 };
 
-export async function post({ request }: { request: Request }) {
+export const post: RequestHandler = async ({
+  request,
+}: {
+  request: Request;
+}) => {
   const { email, password } = await request.json();
   if (!email) {
     return {
@@ -71,4 +75,4 @@ export async function post({ request }: { request: Request }) {
       email: created.email,
     },
   };
-}
+};

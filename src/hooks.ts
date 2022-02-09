@@ -5,7 +5,6 @@ import { sequence } from "@sveltejs/kit/hooks";
 
 const injectCurrentUser: Handle = async ({ event, resolve }) => {
   const { session_id: sessionId } = parse(event.request.headers.get("cookie"));
-
   if (sessionId) {
     const session = await getSession(sessionId);
     if (session) {
@@ -19,11 +18,10 @@ const protectAdminRoutes: Handle = async ({ event, resolve }) => {
   const url = new URL(event.request.url);
   const user = event.locals.user;
   if (isAdminRoute(url) && !isAdminUser(user)) {
-    const response = new Response(null, {
+    return new Response(null, {
       status: 302,
       headers: { location: "/login" },
     });
-    return response;
   }
   return resolve(event);
 };

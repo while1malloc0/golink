@@ -2,6 +2,8 @@ import { v4 as uuid } from "uuid";
 
 type User = { email: string; authorizationTier: string };
 
+// Note: this is a bad way to do "real" sessions, but it works for single-server
+// deployments
 let sessions: {
   id: string;
   user: User;

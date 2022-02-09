@@ -1,5 +1,5 @@
 import { parse } from "cookie";
-import { getSession } from "$lib/currentUser";
+import { getSession } from "$lib/session";
 import type { Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
 

@@ -1,14 +1,16 @@
 import { v4 as uuid } from "uuid";
 
+type User = { email: string; authorizationTier: string };
+
 let sessions: {
   id: string;
-  email: string;
+  user: User;
 }[] = [];
 
-export const createSession = async (email: string) => {
+export const createSession = async (user: User) => {
   const session = {
     id: uuid(),
-    email,
+    user: user,
   };
   sessions.push(session);
   return session;

@@ -4,7 +4,7 @@
 // for information about these interfaces
 declare namespace App {
   interface Locals {
-    user: { email: string };
+    user: { email: string; authorizationTier: string };
   }
 
   interface Platform {}

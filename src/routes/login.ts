@@ -68,7 +68,10 @@ export const post: RequestHandler = async ({ request }) => {
     };
   }
 
-  const { id } = await createSession(user.email);
+  const { id } = await createSession({
+    email: user.email,
+    authorizationTier: user.authorization_tier,
+  });
 
   return {
     status: 200,

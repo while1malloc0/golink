@@ -1,10 +1,10 @@
 import { parse } from "cookie";
 import { getSession } from "$lib/currentUser";
 import type { Handle } from "@sveltejs/kit";
+import { sequence } from "@sveltejs/kit/hooks";
 
-export const handle: Handle = async ({ event, resolve }) => {
+const injectCurrentUser: Handle = async ({ event, resolve }) => {
   const { session_id: sessionId } = parse(event.request.headers.get("cookie"));
-  const url = new URL(event.request.url);
 
   if (sessionId) {
     const session = await getSession(sessionId);
@@ -12,7 +12,11 @@ export const handle: Handle = async ({ event, resolve }) => {
       event.locals.user = session.user;
     }
   }
+  return resolve(event);
+};
 
+const protectAdminRoutes: Handle = async ({ event, resolve }) => {
+  const url = new URL(event.request.url);
   if (
     url.pathname.startsWith("/admin/") &&
     (!event.locals.user || event.locals.user.authorizationTier !== "Admin")
@@ -23,6 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     });
     return response;
   }
-
-  return await resolve(event);
+  return resolve(event);
 };
+
+export const handle: Handle = sequence(injectCurrentUser, protectAdminRoutes);

@@ -17,10 +17,8 @@ const injectCurrentUser: Handle = async ({ event, resolve }) => {
 
 const protectAdminRoutes: Handle = async ({ event, resolve }) => {
   const url = new URL(event.request.url);
-  if (
-    url.pathname.startsWith("/admin/") &&
-    (!event.locals.user || event.locals.user.authorizationTier !== "Admin")
-  ) {
+  const user = event.locals.user;
+  if (isAdminRoute(url) && !isAdminUser(user)) {
     const response = new Response(null, {
       status: 302,
       headers: { location: "/login" },
@@ -28,6 +26,14 @@ const protectAdminRoutes: Handle = async ({ event, resolve }) => {
     return response;
   }
   return resolve(event);
+};
+
+const isAdminRoute = (url: URL) => {
+  return url.pathname.startsWith("/admin/");
+};
+
+const isAdminUser = (user) => {
+  return user?.authorizationTier === "Admin";
 };
 
 export const handle: Handle = sequence(injectCurrentUser, protectAdminRoutes);

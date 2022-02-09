@@ -1,7 +1,7 @@
 import type { RequestHandler } from "@sveltejs/kit";
 import Database from "$lib/db";
 import bcrypt from "bcrypt";
-import { createSession } from "$lib/currentUser";
+import { createSession } from "$lib/session";
 import { serialize } from "cookie";
 
 export const get: RequestHandler = async () => {

@@ -9,6 +9,10 @@ body {
   @apply bg-golink-cream text-golink-green;
 }
 
+h1 {
+  @apply text-2xl my-2;
+}
+
 .golink-form {
   @apply container flex flex-col space-y-4 max-w-md;
 }

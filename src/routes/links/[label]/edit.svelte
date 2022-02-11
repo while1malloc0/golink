@@ -18,8 +18,11 @@
   }
 </script>
 
+<h1>Edit your link</h1>
 <form on:submit|preventDefault={onSubmit}>
-  <input type="text" id="label" bind:value={label}/>
-  <input type="text" id="destination" bind:value={destination}/>
-  <button type="submit">Submit</button>
+  <div class="golink-form">
+    <input type="text" id="label" bind:value={label}/>
+    <input type="text" id="destination" bind:value={destination}/>
+    <button type="submit">Submit</button>
+  </div>
 </form>

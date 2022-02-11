@@ -6,6 +6,7 @@ const c = [
 	() => import("../../src/routes/admin/users.svelte"),
 	() => import("../../src/routes/links/index.svelte"),
 	() => import("../../src/routes/links/new.svelte"),
+	() => import("../../src/routes/links/[label]/edit.svelte"),
 	() => import("../../src/routes/login.svelte"),
 	() => import("../../src/routes/404.svelte")
 ];
@@ -28,11 +29,14 @@ export const routes = [
 	// src/routes/links/new.svelte
 	[/^\/links\/new\/?$/, [c[0], c[6]], [c[1]]],
 
+	// src/routes/links/[label]/edit.svelte
+	[/^\/links\/([^/]+?)\/edit\/?$/, [c[0], c[7]], [c[1]], (m) => ({ label: d(m[1])}), 1],
+
 	// src/routes/login.svelte
-	[/^\/login\/?$/, [c[0], c[7]], [c[1]], null, 1],
+	[/^\/login\/?$/, [c[0], c[8]], [c[1]], null, 1],
 
 	// src/routes/404.svelte
-	[/^\/404\/?$/, [c[0], c[8]], [c[1]]]
+	[/^\/404\/?$/, [c[0], c[9]], [c[1]]]
 ];
 
 // we import the root layout/error components eagerly, so that

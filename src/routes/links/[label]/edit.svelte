@@ -3,8 +3,13 @@
 
   export let label = link?.label;
   export let destination = link?.destination;
+  export let success = false;
 
   const onSubmit = async (e) => {
+    if (success) {
+      success = !success;
+      return
+    }
     const resp = await fetch(`/links/${label}`, {
       method: "PUT",
       headers: {
@@ -15,14 +20,23 @@
         destination: destination,
       }),
     });
+    if (resp.ok) {
+      success = true;
+    }
   }
 </script>
 
 <h1>Edit your link</h1>
 <form on:submit|preventDefault={onSubmit}>
   <div class="golink-form">
-    <input type="text" id="label" bind:value={label}/>
-    <input type="text" id="destination" bind:value={destination}/>
-    <button type="submit">Submit</button>
+    <input type="text" bind:value={label}/>
+    <input type="text" bind:value={destination}/>
+    <button type="submit">
+      {#if success}
+        Successfully updated your link
+      {:else}
+        Submit
+      {/if}
+    </button>
   </div>
 </form>

@@ -1,7 +1,7 @@
 <script lang="ts">
   export let label: string;
   export let destination: string;
-  export let banner: string;
+  export let buttonText: string;
   export let errors;
   const onSubmit = async () => {
     const resp = await fetch("/links", {
@@ -15,28 +15,35 @@
       }),
     });
     if (resp.status == 201) {
-      banner = "Link created successfully";
+      buttonText = "Link created successfully";
       label = "";
       destination = "";
     } else {
-      banner = "Error creating link";
+      buttonText = "Error creating link";
       errors = (await resp.json()).errors;
     }
+    setTimeout(() => {
+      buttonText = "Submit";
+    }, 5000);
   }
 </script>
 
 <h1>Create a new link</h1>
-
-{#if banner}
-  <span>{banner}</span>  
-{/if}
 
 {#if errors}
   <span>{errors}</span>
 {/if}
 
 <form on:submit|preventDefault={onSubmit}>
-  <input name="label" placeholder="example" bind:value={label} />
-  <input name="destination" placeholder="https://example.org" bind:value={destination} />
-  <button type="submit">Create</button>
+  <div class="golink-form">
+    <input name="label" placeholder="example" bind:value={label} />
+    <input name="destination" placeholder="https://example.org" bind:value={destination} />
+    <button type="submit">
+      {#if buttonText}
+        {buttonText}
+      {:else}
+        Submit
+      {/if}
+    </button>
+  </div>
 </form>

@@ -24,14 +24,16 @@
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
-    <input type="text" name="email" placeholder="email" bind:value={email}/>
-    {#if errors?.email}
-        <p class="error">{errors.email}</p>
-    {/if}
-        
-    <input type="password" name="password" placeholder="password" bind:value={password}/>
-    {#if errors?.password}
-        <p class="error">{errors.password}</p>
-    {/if}
-    <button type="submit">Log In</button>
+    <div class="golink-form">
+        <input type="text" name="email" placeholder="email" bind:value={email}/>
+        {#if errors?.email}
+            <p class="error">{errors.email}</p>
+        {/if}
+            
+        <input type="password" name="password" placeholder="password" bind:value={password}/>
+        {#if errors?.password}
+            <p class="error">{errors.password}</p>
+        {/if}
+        <button type="submit">Log In</button>
+    </div>
 </form>

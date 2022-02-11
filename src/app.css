@@ -6,4 +6,17 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  @apply bg-golink-cream text-golink-green;
+}
+
+.golink-form {
+  @apply container flex flex-col space-y-4 max-w-md;
+}
+
+.golink-form > input {
+  @apply px-1 rounded;
+}
+
+.golink-form > button {
+  @apply bg-golink-beige text-white rounded;
 }

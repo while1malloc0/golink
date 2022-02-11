@@ -3,12 +3,12 @@
 </script>
 
 <header>
-  <div class="container px-2 py-10">
+  <div class="container mx-10 my-5">
     <h1 class="text-3xl">Go/Link</h1>
   </div>
 </header>
 <main>
-  <div class="container px-2">
+  <div class="container mx-10">
     <slot/>
   </div>
 </main>

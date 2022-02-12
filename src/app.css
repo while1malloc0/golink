@@ -24,3 +24,15 @@ h1 {
 .golink-form > button {
   @apply bg-golink-beige text-white rounded;
 }
+
+.golink-form > button.success {
+  @apply bg-golink-green;
+}
+
+.golink-form > button.failure {
+  @apply bg-golink-red;
+}
+
+.golink-form > button.loading {
+  @apply animate-pulse;
+}

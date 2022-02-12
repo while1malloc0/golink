@@ -3,7 +3,12 @@
   export let destination: string;
   export let buttonText: string;
   export let errors;
+  let buttonClasses;
+
   const onSubmit = async () => {
+    buttonText = "Saving...";
+    buttonClasses = "loading";
+
     const resp = await fetch("/links", {
       method: "POST",
       headers: {
@@ -16,15 +21,18 @@
     });
     if (resp.status == 201) {
       buttonText = "Link created successfully";
+      buttonClasses = "success";
       label = "";
       destination = "";
     } else {
       buttonText = "Error creating link";
       errors = (await resp.json()).errors;
     }
+
     setTimeout(() => {
       buttonText = "Submit";
-    }, 5000);
+      buttonClasses = "";
+    }, 4000);
   }
 </script>
 
@@ -37,8 +45,8 @@
 <form on:submit|preventDefault={onSubmit}>
   <div class="golink-form">
     <input name="label" placeholder="example" bind:value={label} />
-    <input name="destination" placeholder="https://example.org" bind:value={destination} />
-    <button type="submit">
+    <input name="destination" placeholder="https://example.org" bind:value={destination} class="" />
+    <button type="submit" id="submit" class="{buttonClasses}">
       {#if buttonText}
         {buttonText}
       {:else}

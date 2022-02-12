@@ -1,23 +1,52 @@
 import type { RequestHandler } from "@sveltejs/kit";
 import Database from "$lib/db";
 
-export const get: RequestHandler = async () => {
+export const get: RequestHandler = async ({ locals }) => {
+  const user = locals.user;
+  if (!user) {
+    return {
+      status: 401,
+      body: {
+        errors: {
+          message: "You must be logged in to access this resource",
+        },
+      },
+    };
+  }
   const db = new Database();
-  const links = await db.link.findMany();
+  const links =
+    (await db.link.findMany({ where: { ownerEmail: user.email } })) || [];
   return {
+    status: 200,
     body: {
       links,
     },
   };
 };
 
-export const post: RequestHandler = async ({ request }) => {
+export const post: RequestHandler = async ({ request, locals }) => {
+  const user = locals.user;
+  if (!user) {
+    return {
+      status: 401,
+      body: {
+        errors: {
+          message: "You must be logged in to create a link",
+        },
+      },
+    };
+  }
+
   const db = new Database();
   const { link } = await request.json();
   let created;
   try {
     created = await db.link.create({
-      data: { destination: link.destination, label: link.label },
+      data: {
+        destination: link.destination,
+        label: link.label,
+        ownerEmail: user.email,
+      },
     });
   } catch (e) {
     const errors: { label?: string } = {};

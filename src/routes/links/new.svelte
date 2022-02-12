@@ -6,6 +6,7 @@
   let buttonClasses;
 
   const onSubmit = async () => {
+    errors = {};
     buttonText = "Saving...";
     buttonClasses = "loading";
 
@@ -15,8 +16,10 @@
         "Accept": "application/json",
       },
       body: JSON.stringify({
-        label: label,
-        destination: destination,
+        link: {
+          label: label,
+          destination: destination,
+        },
       }),
     });
     if (resp.status == 201) {
@@ -38,12 +41,11 @@
 
 <h1>Create a new link</h1>
 
-{#if errors}
-  <span>{errors}</span>
-{/if}
-
 <form on:submit|preventDefault={onSubmit}>
   <div class="golink-form">
+    {#if errors?.label}
+      <span>{errors.label}</span>
+    {/if}
     <input name="label" placeholder="example" bind:value={label} />
     <input name="destination" placeholder="https://example.org" bind:value={destination} class="" />
     <button type="submit" id="submit" class="{buttonClasses}">

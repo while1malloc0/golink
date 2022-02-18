@@ -15,7 +15,14 @@
     {#each items as item}
       <tr class="hover:bg-gray-50">
         {#each columns as column}
-          <td>{item[column.field]}</td>
+          <td>
+            <!-- we naively assume that if a field is a function, it's probably a Svelte component -->
+            {#if typeof(item[column.field]) === "function" }
+              <svelte:component this={item[column.field]}/>
+            {:else}
+              {item[column.field]}
+            {/if}
+          </td>
         {/each}
       </tr> 
     {/each}

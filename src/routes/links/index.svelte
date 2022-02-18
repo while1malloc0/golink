@@ -3,24 +3,15 @@
 </svelte:head>
 
 <script lang="ts">
+  import Card from "$lib/components/Card.svelte";
+  import Table from "$lib/components/Table.svelte";
   export let links;
+  const columns = [
+    {title: "Label", field: "label"},
+    {title: "Destination", field: "destination"}
+  ]
 </script>
 
-<div class="bg-white p-3 rounded-md shadow-lg">
-  <table class="m-1 w-full">
-    <thead class="tracking-wide text-md font-semibold text-left bg-gray-200">
-      <tr>
-        <th>Label</th>
-        <th>Destination</th>
-      </tr>
-    </thead>
-    <tbody class="text-left tracking-wide font-light text-sm">
-      {#each links as link}
-        <tr class="hover:bg-gray-50">
-          <td>{link.label}</td>
-          <td>{link.destination}</td>
-        </tr> 
-      {/each}
-    </tbody>
-  </table>
-</div>
+<Card>
+  <Table columns={columns} items={links}/>
+</Card>

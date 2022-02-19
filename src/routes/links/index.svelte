@@ -21,28 +21,25 @@
 </script>
 
 <Card>
-  <table class="m-1 w-full">
-    <thead class="tracking-wide text-md font-semibold text-left bg-gray-200">
-      <tr>
-        <th>Label</th>
-        <th>Destination</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody class="text-left tracking-wide font-light text-sm">
-        {#each tableData as link}
-          <tr class="hover:bg-gray-50">
-            {#if link.edit}
-              <td><input class="tracking-wide m-0 font-light text-sm text-left rounded-md ring-1 ring-golink-green px-1 w-min" value={link.label}/></td>
-              <td><input class="tracking-wide m-0 font-light text-sm text-left rounded-md ring-1 ring-golink-green px-1 w-full" value={link.destination}/></td>
-              <td on:click={() => toggleEditState(link)}><Check/></td>
-            {:else}
-              <td>{link.label}</td>
-              <td>{link.destination}</td>
-              <td on:click={() => toggleEditState(link)}><Pencil/></td>
-            {/if}
-          </tr> 
-        {/each}
-    </tbody>
-  </table>
+  <div role="columnheader">
+    <div class="grid grid-cols-3 text-left font-semibold tracking-wide">
+      <div class="px-1">Label</div>
+      <div class="px-1">Destination</div>
+    </div>
+  </div>
+  <div>
+    {#each tableData as link}
+      <div class="grid grid-cols-3 text-left text-sm font-light tracking-wide {!link.edit && "hover:bg-gray-100 hover:rounded-sm"}">
+        {#if link.edit}
+          <div><input class="rounded-sm px-1 ring-golink-green ring-2 font-light tracking-wide" value={link.label}/></div>
+          <div class="col-span-2"><input class="font-light px-1 w-full ring-golink-green ring-2 rounded-sm tracking-wide" value={link.destination}/></div>
+          <div class="col-start-4 ml-1" on:click={() => toggleEditState(link)}><Check/></div>
+        {:else}
+          <div class="px-1">{link.label}</div>
+          <div class="col-span-2 px-1">{link.destination}</div>
+          <div class="col-start-4 ml-1" on:click={() => toggleEditState(link)}><Pencil /></div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </Card>

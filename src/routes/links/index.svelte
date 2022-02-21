@@ -18,6 +18,18 @@
       tableData[idx].edit = !tableData[idx].edit;
     }
   }
+
+  const saveLink = async (link) => {
+    const resp = await fetch(`/links/${link.label}`,
+      { method: "PUT", body: JSON.stringify(link) }
+    );
+    if (resp.ok) {
+      toggleEditState(link);
+    } else {
+      const parsed = await resp.json();
+      console.log(parsed.errors);
+    }
+  }
 </script>
 
 <Card>
@@ -31,9 +43,9 @@
     {#each tableData as link}
       <div class="grid grid-cols-3 text-left text-sm font-light tracking-wide {!link.edit && "hover:bg-gray-100 hover:rounded-sm"}">
         {#if link.edit}
-          <div><input class="rounded-sm px-1 ring-golink-green ring-2 font-light tracking-wide" value={link.label}/></div>
-          <div class="col-span-2"><input class="font-light px-1 w-full ring-golink-green ring-2 rounded-sm tracking-wide" value={link.destination}/></div>
-          <div class="col-start-4 ml-1" on:click={() => toggleEditState(link)}><Check/></div>
+          <div><input class="rounded-sm px-1 ring-golink-green ring-2 font-light tracking-wide" bind:value={link.label}/></div>
+          <div class="col-span-2"><input class="font-light px-1 w-full ring-golink-green ring-2 rounded-sm tracking-wide" bind:value={link.destination}/></div>
+          <div class="col-start-4 ml-1" on:click={() => saveLink(link)}><Check/></div>
         {:else}
           <div class="px-1">{link.label}</div>
           <div class="col-span-2 px-1">{link.destination}</div>

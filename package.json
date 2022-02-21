@@ -33,6 +33,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^3.9.1",
+    "@sveltejs/adapter-vercel": "^1.0.0-next.39",
     "aws-sdk": "^2.1077.0",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.2",

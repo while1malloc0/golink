@@ -4,13 +4,6 @@ import bcrypt from "bcrypt";
 import { createSession } from "$lib/session";
 import { serialize } from "cookie";
 
-export const get: RequestHandler = async () => {
-  // TODO check if user is logged in
-  return {
-    status: 200,
-  };
-};
-
 export const post: RequestHandler = async ({ request }) => {
   const { email, password } = await request.json();
 

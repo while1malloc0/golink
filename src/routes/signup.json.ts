@@ -2,12 +2,6 @@ import type { RequestHandler } from "@sveltejs/kit";
 import Database from "$lib/db";
 import bcrypt from "bcrypt";
 
-export const get: RequestHandler = async () => {
-  return {
-    status: 200,
-  };
-};
-
 export const post: RequestHandler = async ({
   request,
 }: {

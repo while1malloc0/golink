@@ -4,7 +4,7 @@
     export let errors: { email?: string, password?: string };
 
     const onSubmit = async () => {
-        const resp = await fetch("/login.json", {
+        const resp = await fetch("/api/login.json", {
             method: "POST",
             headers: {
                 "Accept": "application/json"

@@ -12,7 +12,7 @@ const config = {
   },
   vite: {
     ssr: {
-      noExternal: ["mock-aws-sdk", "aws-sdk", "nock"],
+      external: ["mock-aws-sdk", "aws-sdk", "nock"],
     },
   },
 };
